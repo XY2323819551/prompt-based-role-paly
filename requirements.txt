@@ -1,4 +1,0 @@
-rich
-ipython
-pandas
-numpy

@@ -14,16 +14,13 @@ class ArxivResult:
     entry_id: str
 
 
-def search_arxiv(
-    query: str,
-    max_results: Optional[int] = 3,
-) -> str:
+def search_arxiv(query: str, max_results:int= 1) -> str:
     """
-    在Arxiv上搜索学术论文。
+    在Arxiv上搜索学术论文。arxiv搜索工具查找相关论文。
 
     Args:
         query (str): 搜索查询字符串
-        max_results (int, optional): 返回结果的最大数量。默认为3。
+        max_results (int): 整数类型，返回结果的最大数量。默认为1。
 
     Returns:
         str: 格式化的搜索结果字符串
@@ -37,7 +34,7 @@ def search_arxiv(
         )
 
         results = []
-        for result in client.results(search):
+        for result in client.results(search): 
             paper = ArxivResult(
                 title=result.title,
                 authors=[str(author) for author in result.authors],
@@ -70,7 +67,8 @@ def search_arxiv(
 
 
 if __name__ == "__main__":
-    query = "attention is all you need"
+    # query = "attention is all you need"
+    query = "Transformer architecture"
     print(f"Searching arxiv for: {query}")
     print("-" * 80)
     results = search_arxiv(query)
