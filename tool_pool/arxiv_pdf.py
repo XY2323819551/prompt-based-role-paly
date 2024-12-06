@@ -133,7 +133,7 @@ def get_arxiv_pdf_content(pdf_url: str) -> str:
     """
     tool = ArxivPDFTool()
     result = tool.process_arxiv_pdf(pdf_url, save_local=False)
-    return result.content if result.success else "内容提取失败"
+    return result.content[:1000] if result.success else "内容提取失败"  # 先返回前1000个字符
 
 
 if __name__ == "__main__":

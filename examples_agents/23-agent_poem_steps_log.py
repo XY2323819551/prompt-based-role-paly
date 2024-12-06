@@ -14,7 +14,7 @@ from utils.agent_logger import AgentLogger
 
 class Agent(BaseModel):
     name: str = "Agent"
-    model: str = "llama3-70b-8192"  # deepseek-chat, mixtral-8x7b-32768, Qwen/Qwen2-72B-Instruct, gpt-4o, llama3-70b-8192
+    model: str = "gpt-4o"  # deepseek-chat, mixtral-8x7b-32768, Qwen/Qwen2-72B-Instruct, gpt-4o, llama3-70b-8192
     instructions: str = "你是一个非常有用的人工智能助手，你使用中文回答用户的问题。"
     tools: list = []
 
@@ -78,7 +78,7 @@ def poetry_creation(weather: str, location: str, date: str) -> str:
 
 
 def transfer_back_to_triage():
-    """如果用户提出了一个超出你职责的话题，就调用这个选项。"""
+    """转交给任务分发agent。如果用户提出了一个超出你职责的话题，就调用这个选项。"""
     return triage_agent
 
 
@@ -102,7 +102,7 @@ triage_agent = Agent(
 
 
 get_env_agent = Agent(
-    name="Get Weather Agent",
+    name="Get Env Agent",
     instructions=("你的任务根据用户所在地点，收集该地的环境信息，你擅长使用工具。你需要 \
                   1. 根据用户所在地点进行天气的查询，并返回天气信息 \
                   2. 获取当前日期信息 \
@@ -116,7 +116,7 @@ poem_agent = Agent(
     name="Poetry Creation Agent",
     instructions=(
         "你的职责是根据天气信息和地点信息写一首诗。如果用户没有指明诗歌的风格，就写一首现代诗；如果用户有要求诗歌的风格，则按照用户要求的风格写诗。\
-        你不会回答你职责以外的问题，但是会调用合适的工具进行任务交接。"
+        你不会回答你职责以外的问题，但是会转交给任务分发agent去回答。"
     ),
     tools=[poetry_creation, transfer_back_to_triage],
 )

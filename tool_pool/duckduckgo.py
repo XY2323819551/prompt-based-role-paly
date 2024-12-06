@@ -16,6 +16,7 @@ class DuckDuckGoSearchTool(BaseTool):
     
 if __name__ == "__main__":
     query = "What is the capital of France?"
+    # query = "法国的首都在哪里"
     raw_tool = DuckDuckGoSearchTool(raw_results=True, backend="news")
     print(raw_tool.run(query))
     tool = DuckDuckGoSearchTool()

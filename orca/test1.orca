@@ -1,0 +1,8 @@
+step1: 
+    web_search()
+step2: 
+    get_time()
+step3: 
+    get_weather()
+step4: 
+    write_poem()
